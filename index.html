@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="main.css">
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
+    <script>
+
+    // CODE 
+        function loadCCODE() {
+            var url = "http://162.17.231.117:1314/SpinoService.svc/getcountrylist";
+            var http_request = new XMLHttpRequest();
+            try {
+                console.log("inside try");
+
+                let dropdown = document.getElementById('codeopt');
+                dropdown.length = 0;
+
+                let defaultOption = document.createElement('option');
+                defaultOption.text = 'Choose Country Code';
+
+                dropdown.add(defaultOption);
+                dropdown.selectedIndex = 0;
+                http_request.onreadystatechange = function () {
+                    console.log('http_request.readyState');
+                    if (http_request.readyState == 4) {
+                        var ArrayList = JSON.parse(http_request.responseText);
+                        ArrayList = ArrayList.GetCountryListResult;
+                        console.log(ArrayList)
+                        var option = '';
+                        for (var i = 0; i < ArrayList.length; i++) {
+                            this.option = document.createElement('option');
+                            this.option.text = ArrayList[i].country_code;
+                            this.option.value = ArrayList[i].country_code;
+                            dropdown.add(this.option);
+
+                        }
+                    }
+                }
+                http_request.open("GET", url, true);
+                http_request.send();
+            }
+            catch (e) {
+                // Something went wrong
+                alert("Your browser broke!");
+                return false;
+            }
+        }
+    // ID
+        function loadCID() {
+            var url = "http://162.17.231.117:1314/SpinoService.svc/getcountrylist";
+            var http_request = new XMLHttpRequest();
+            try {
+
+                let dropdown = document.getElementById('idopt');
+                dropdown.length = 0;
+
+                let defaultOption = document.createElement('option');
+                defaultOption.text = 'Choose Country ID';
+
+                dropdown.add(defaultOption);
+                dropdown.selectedIndex = 0;
+                http_request.onreadystatechange = function () {
+                    console.log('http_request.readyState');
+                    if (http_request.readyState == 4) {
+                        var ArrayList = JSON.parse(http_request.responseText);
+                        ArrayList = ArrayList.GetCountryListResult;
+                        var option = '';
+                        for (var i = 0; i < ArrayList.length; i++) {
+                            this.option = document.createElement('option');
+                            this.option.text = ArrayList[i].country_id;
+                            this.option.value = ArrayList[i].country_id;
+                            dropdown.add(this.option);
+                        }
+                    }
+                }
+                http_request.open("GET", url, true);
+                http_request.send();
+            }
+            catch (e) {
+                // Something went wrong
+                alert("Your browser broke!");
+                return false;
+            }
+        }
+    // NAME
+         function loadCNAME() {
+            var url = "http://162.17.231.117:1314/SpinoService.svc/getcountrylist";
+            var http_request = new XMLHttpRequest();
+            try {
+
+                let dropdown = document.getElementById('nameopt');
+                dropdown.length = 0;
+
+                let defaultOption = document.createElement('option');
+                defaultOption.text = 'Choose Country Name';
+
+                dropdown.add(defaultOption);
+                dropdown.selectedIndex = 0;
+                http_request.onreadystatechange = function () {
+                    console.log('http_request.readyState');
+                    if (http_request.readyState == 4) {
+                        var ArrayList = JSON.parse(http_request.responseText);
+                        ArrayList = ArrayList.GetCountryListResult;
+                        var option = '';
+                        for (var i = 0; i < ArrayList.length; i++) {
+                            this.option = document.createElement('option');
+                            this.option.text = ArrayList[i].country_name;
+                            this.option.value = ArrayList[i].country_name;
+                            dropdown.add(this.option);
+                        }
+                    }
+                }
+                http_request.open("GET", url, true);
+                http_request.send();
+            }
+            catch (e) {
+                // Something went wrong
+                alert("Your browser broke!");
+                return false;
+            }
+        }
+        window.onload = function load() {
+            loadCCODE();loadCID();loadCNAME();
+        } 
+ 
+    </script>
+    <title>spinotuts.com JSON</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2> Ajax Javascript:</h2>
+        <div class="sd"><select id="codeopt"></select>
+        <select id="idopt"></select>
+        <select id="nameopt"></select></div>
+    </div>
+</body>
+</html>
